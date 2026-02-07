@@ -10,7 +10,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import moe.shizuku.manager.BuildConfig
 import moe.shizuku.manager.Manifest
+import moe.shizuku.manager.application
 import moe.shizuku.manager.model.ServiceStatus
+import moe.shizuku.manager.mrsk.MRSKHelper
 import moe.shizuku.manager.utils.Logger.LOGGER
 import moe.shizuku.manager.utils.ShizukuSystemApis
 import rikka.lifecycle.Resource
@@ -49,6 +51,10 @@ class HomeViewModel : ViewModel() {
     fun reload() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
+                // If no Binder yet, try MRSK (reid) so Rei users get Shizuku without Java server
+                if (!Shizuku.pingBinder()) {
+                    MRSKHelper.tryReceiveBinderFromReid(application)
+                }
                 val status = load()
                 _serviceStatus.postValue(Resource.success(status))
             } catch (e: CancellationException) {

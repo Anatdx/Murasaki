@@ -67,6 +67,21 @@ https://github.com/RikkaApps/Shizuku-API#migration-guide-for-existing-applicatio
 
 ## Developing Shizuku itself
 
+### Debug: 抓 Shizuku 相关日志（应用 + daemon）
+
+一条命令同时看应用和 daemon（daemon tag 可能是 Rei 或 KernelSU）：
+
+```bash
+adb logcat -v time | grep -E "Rei|transactRemote|Shizuku"
+```
+
+复现「点允许后卡住」时看是否出现：
+- `Shizuku service ready` — daemon 已起来
+- `Shizuku code=1 transactRemote received` — 收到 transactRemote
+- `transactRemote ENTER` — 进入 handleTransactRemote
+
+若 logcat 里完全没有 Shizuku/transactRemote，可试 daemon 是否只写了 kmsg：`adb shell dmesg | grep -E "Shizuku|transactRemote"`
+
 ### Build
 
 - Clone with `git clone --recurse-submodules`

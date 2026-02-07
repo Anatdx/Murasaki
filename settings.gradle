@@ -44,6 +44,7 @@ include ':server', ':starter', ':shell'
 include ':manager'
 include ':common'
 
+// api = MRSK API (Murasaki = Shizuku API adapted for reid)
 def root = "api"
 
 def propFile = file('local.properties')
@@ -77,5 +78,6 @@ project(':provider').projectDir = file("$root${File.separator}provider")
 include ':server-shared'
 project(':server-shared').projectDir = file("$root${File.separator}server-shared")
 
+// MRSK API (Murasaki) uses demo-hidden-api-stub
 include ':hidden-api-stub'
-project(':hidden-api-stub').projectDir = file("$root${File.separator}hidden-api-stub")
+project(':hidden-api-stub').projectDir = file("$root${File.separator}demo-hidden-api-stub")

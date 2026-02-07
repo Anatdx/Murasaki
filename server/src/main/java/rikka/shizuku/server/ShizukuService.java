@@ -13,7 +13,11 @@ import static rikka.shizuku.ShizukuApiConstants.REQUEST_PERMISSION_REPLY_ALLOWED
 import static rikka.shizuku.ShizukuApiConstants.REQUEST_PERMISSION_REPLY_IS_ONETIME;
 import static rikka.shizuku.server.ServerConstants.MANAGER_APPLICATION_ID;
 import static rikka.shizuku.server.ServerConstants.PERMISSION;
+import static rikka.shizuku.server.ServerConstants.REI_AUTHORIZE_ACTIVITY_CLASS;
+import static rikka.shizuku.server.ServerConstants.REI_EXTRA_SOURCE_MURASAKI;
+import static rikka.shizuku.server.ServerConstants.REI_MANAGER_APPLICATION_ID;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.IContentProvider;
 import android.content.Intent;
@@ -38,6 +42,7 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import kotlin.collections.ArraysKt;
 import moe.shizuku.api.BinderContainer;
@@ -88,6 +93,7 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
     private final ShizukuClientManager clientManager;
     private final ShizukuConfigManager configManager;
     private final int managerAppId;
+    private final AtomicInteger nextMRSKRequestCode = new AtomicInteger(1);
 
     public ShizukuService() {
         super();
@@ -124,7 +130,34 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
         mainHandler.post(() -> {
             sendBinderToClient();
             sendBinderToManager();
+            registerMRSKService();
         });
+    }
+
+    /**
+     * MRSK: request permission for (uid, pid, packageName). Shows Rei/Manager permission UI.
+     * @return requestCode to pass to dispatchPermissionConfirmationResult, or -1 if no client.
+     */
+    public int requestPermissionForMurasaki(int uid, int pid, String packageName) {
+        ClientRecord record = clientManager.findClient(uid, pid);
+        if (record == null) {
+            LOGGER.w("requestPermissionForMurasaki: no client for uid=%d pid=%d", uid, pid);
+            return -1;
+        }
+        int requestCode = nextMRSKRequestCode.getAndIncrement();
+        int userId = uid / 100000;
+        showPermissionConfirmation(requestCode, record, uid, pid, userId);
+        return requestCode;
+    }
+
+    private void registerMRSKService() {
+        try {
+            IBinder mrsk = new ShizukuMRSKService(this);
+            ServiceManager.addService(ServerConstants.MRSK_SERVICE_NAME, mrsk);
+            LOGGER.i("MRSK service registered: %s", ServerConstants.MRSK_SERVICE_NAME);
+        } catch (Throwable t) {
+            LOGGER.w(t, "registerMRSKService");
+        }
     }
 
     @Override
@@ -270,13 +303,27 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
             return;
         }
 
-        Intent intent = new Intent(ServerConstants.REQUEST_PERMISSION_ACTION)
-                .setPackage(MANAGER_APPLICATION_ID)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
-                .putExtra("uid", callingUid)
-                .putExtra("pid", callingPid)
-                .putExtra("requestCode", requestCode)
-                .putExtra("applicationInfo", ai);
+        Intent intent;
+        if (MANAGER_APPLICATION_ID.equals(REI_MANAGER_APPLICATION_ID)) {
+            // Rei (MRSK) Manager: start AuthorizeActivity with rei.extra.* (Rei / Murasaki flow)
+            intent = new Intent()
+                    .setComponent(new ComponentName(REI_MANAGER_APPLICATION_ID, REI_AUTHORIZE_ACTIVITY_CLASS))
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
+                    .putExtra("rei.extra.UID", callingUid)
+                    .putExtra("rei.extra.PID", callingPid)
+                    .putExtra("rei.extra.REQUEST_CODE", requestCode)
+                    .putExtra("rei.extra.PACKAGE", clientRecord.packageName)
+                    .putExtra("rei.extra.SOURCE", REI_EXTRA_SOURCE_MURASAKI)
+                    .putExtra("rei.extra.APP_NAME", clientRecord.packageName);
+        } else {
+            intent = new Intent(ServerConstants.REQUEST_PERMISSION_ACTION)
+                    .setPackage(MANAGER_APPLICATION_ID)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
+                    .putExtra("uid", callingUid)
+                    .putExtra("pid", callingPid)
+                    .putExtra("requestCode", requestCode)
+                    .putExtra("applicationInfo", ai);
+        }
         ActivityManagerApis.startActivityNoThrow(intent, null, isWorkProfileUser ? 0 : userId);
     }
 
