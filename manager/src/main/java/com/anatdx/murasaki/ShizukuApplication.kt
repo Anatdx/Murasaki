@@ -1,0 +1,43 @@
+package com.anatdx.murasaki
+
+import android.app.Application
+import android.content.Context
+import android.os.Build
+import androidx.appcompat.app.AppCompatDelegate
+import com.topjohnwu.superuser.Shell
+import com.anatdx.murasaki.ktx.logd
+import com.anatdx.murasaki.mrsk.MRSKHelper
+import org.lsposed.hiddenapibypass.HiddenApiBypass
+import rikka.material.app.LocaleDelegate
+
+lateinit var application: ShizukuApplication
+
+class ShizukuApplication : Application() {
+
+    companion object {
+
+        init {
+            logd("ShizukuApplication", "init")
+
+            Shell.setDefaultBuilder(Shell.Builder.create().setFlags(Shell.FLAG_REDIRECT_STDERR))
+            if (Build.VERSION.SDK_INT >= 28) {
+                HiddenApiBypass.setHiddenApiExemptions("")
+            }
+        }
+    }
+
+    private fun init(context: Context?) {
+        ShizukuSettings.initialize(context)
+        LocaleDelegate.defaultLocale = ShizukuSettings.getLocale()
+        AppCompatDelegate.setDefaultNightMode(ShizukuSettings.getNightMode())
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        application = this
+        init(this)
+        // MRSK: on Rei, receive Shizuku Binder from reid so we can use Shizuku without Java server
+        MRSKHelper.tryReceiveBinderFromReid(this)
+    }
+
+}

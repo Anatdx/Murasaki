@@ -35,7 +35,7 @@
         android:key="user_interface"
         android:title="@string/settings_user_interface">
 
-        <moe.shizuku.manager.settings.IntegerSimpleMenuPreference
+        <com.anatdx.murasaki.settings.IntegerSimpleMenuPreference
             android:entries="@array/night_mode"
             android:entryValues="@array/night_mode_value"
             android:key="night_mode"

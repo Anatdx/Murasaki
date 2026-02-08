@@ -1,0 +1,6 @@
+# ninja log v5
+55	212	1770490205536413903	../../../../build/intermediates/cxx/Debug/1p5b3i5a/obj/x86/libhymofs_jni.so	7d7044879577d27d
+0	55	1770490205380794283	CMakeFiles/hymofs_jni.dir/src/main/cpp/hymofs_jni.c.o	a91a2c889ab99afb
+1	78	1770531568423758311	build.ninja	da8798ddfd0d1aba
+0	13	0	clean	e98eb281afe64c5f
+0	5	0	clean	e98eb281afe64c5f

@@ -1,0 +1,3 @@
+/Volumes/Workspace/Shizuku/server/.cxx/Debug/1p5b3i5a/x86_64/CMakeFiles/hymofs_jni.dir
+/Volumes/Workspace/Shizuku/server/.cxx/Debug/1p5b3i5a/x86_64/CMakeFiles/edit_cache.dir
+/Volumes/Workspace/Shizuku/server/.cxx/Debug/1p5b3i5a/x86_64/CMakeFiles/rebuild_cache.dir

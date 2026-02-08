@@ -1,0 +1,11 @@
+# ninja log v5
+129	169	1770490250885601588	../../../../build/intermediates/cxx/RelWithDebInfo/351ox481/obj/arm64-v8a/libhymofs_jni.so	773466de6a914b62
+0	129	1770490250845083890	CMakeFiles/hymofs_jni.dir/src/main/cpp/hymofs_jni.c.o	a1e845f61de9b71a
+1	81	1770491123479602726	CMakeFiles/hymofs_jni.dir/src/main/cpp/hymofs_jni.c.o	a1e845f61de9b71a
+81	130	1770491123527177387	../../../../build/intermediates/cxx/RelWithDebInfo/351ox481/obj/arm64-v8a/libhymofs_jni.so	773466de6a914b62
+1	269	1770529913532606880	CMakeFiles/hymofs_jni.dir/src/main/cpp/hymofs_jni.c.o	a1e845f61de9b71a
+269	409	1770529913675396924	../../../../build/intermediates/cxx/RelWithDebInfo/351ox481/obj/arm64-v8a/libhymofs_jni.so	773466de6a914b62
+0	10	0	clean	e98eb281afe64c5f
+0	4	0	clean	e98eb281afe64c5f
+8	337	1770537226730107078	CMakeFiles/hymofs_jni.dir/src/main/cpp/hymofs_jni.c.o	a1e845f61de9b71a
+337	529	1770537226923992858	../../../../build/intermediates/cxx/RelWithDebInfo/351ox481/obj/arm64-v8a/libhymofs_jni.so	773466de6a914b62

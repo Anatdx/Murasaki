@@ -1,0 +1,11 @@
+# ninja log v5
+54	95	1770490251419236958	../../../../build/intermediates/cxx/RelWithDebInfo/351ox481/obj/armeabi-v7a/libhymofs_jni.so	a64f093a0cf57208
+0	54	1770490251378559385	CMakeFiles/hymofs_jni.dir/src/main/cpp/hymofs_jni.c.o	3f5757de7a9064a7
+0	59	1770491123643148602	CMakeFiles/hymofs_jni.dir/src/main/cpp/hymofs_jni.c.o	3f5757de7a9064a7
+60	108	1770491123689858471	../../../../build/intermediates/cxx/RelWithDebInfo/351ox481/obj/armeabi-v7a/libhymofs_jni.so	a64f093a0cf57208
+1	52	1770529913739937160	CMakeFiles/hymofs_jni.dir/src/main/cpp/hymofs_jni.c.o	3f5757de7a9064a7
+52	91	1770529913778531295	../../../../build/intermediates/cxx/RelWithDebInfo/351ox481/obj/armeabi-v7a/libhymofs_jni.so	a64f093a0cf57208
+0	12	0	clean	e98eb281afe64c5f
+0	4	0	clean	e98eb281afe64c5f
+2	95	1770537227031466875	CMakeFiles/hymofs_jni.dir/src/main/cpp/hymofs_jni.c.o	3f5757de7a9064a7
+96	182	1770537227123766128	../../../../build/intermediates/cxx/RelWithDebInfo/351ox481/obj/armeabi-v7a/libhymofs_jni.so	a64f093a0cf57208

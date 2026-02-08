@@ -10,21 +10,15 @@ plugins {
 }
 
 android {
-    namespace 'moe.shizuku.manager'
+    namespace 'com.anatdx.murasaki'
     defaultConfig {
-        applicationId "moe.shizuku.privileged.api"
+        applicationId "com.anatdx.murasaki"
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
-        externalNativeBuild {
-            cmake {
-                arguments '-DANDROID_STL=none'
-            }
-        }
     }
     buildFeatures {
         buildConfig true
         viewBinding true
-        prefab true
     }
     signingConfigs {
         sign
@@ -41,19 +35,10 @@ android {
             proguardFiles 'proguard-rules.pro'
         }
     }
-    externalNativeBuild {
-        cmake {
-            path 'src/main/jni/CMakeLists.txt'
-            version = "3.31.0+"
-        }
-    }
     kotlinOptions {
         jvmTarget = "21"
     }
     packagingOptions {
-        jniLibs {
-            useLegacyPackaging true
-        }
         resources {
             excludes += ['**']
         }
@@ -75,7 +60,7 @@ autoResConfig {
 
 materialThemeBuilder {
     themes {
-        shizuku {
+        murasaki {
             primaryColor = "#3F51B5"
             lightThemeFormat = "Theme.Material3.Light.%s"
             lightThemeParent = "Theme.Material3.Light.Rikka"
@@ -106,13 +91,11 @@ def collapseReleaseResourceNames = task('collapseReleaseResourceNames').doLast {
 
 afterEvaluate {
     tasks.getByName('optimizeReleaseResources').finalizedBy(collapseReleaseResourceNames)
-    tasks.getByName('preReleaseBuild').dependsOn(':shell:assembleRelease')
-    tasks.getByName('preDebugBuild').dependsOn(':shell:assembleDebug')
 }
 
 android.applicationVariants.configureEach { variant ->
     variant.outputs.configureEach {
-        outputFileName = "shizuku-v${variant.versionName}-${variant.name}.apk"
+        outputFileName = "murasaki-v${variant.versionName}-${variant.name}.apk"
 
         variant.assembleProvider.get().doLast {
             def outDir = new File(rootDir, "out")
@@ -147,7 +130,6 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2'
 
     implementation project(':server')
-    implementation project(':rish')
     implementation project(':starter')
     implementation project(':api')
     implementation project(':provider')
@@ -182,9 +164,6 @@ dependencies {
     implementation 'dev.rikka.rikkax.lifecycle:lifecycle-resource-livedata:1.0.1'
     implementation 'dev.rikka.rikkax.lifecycle:lifecycle-shared-viewmodel:1.0.1'
     implementation 'dev.rikka.rikkax.lifecycle:lifecycle-viewmodel-lazy:2.0.0'
-
-    implementation 'io.github.vvb2060.ndk:boringssl:20250114'
-    implementation 'org.lsposed.libcxx:libcxx:27.0.12077973'
 
     implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:6.1'
 

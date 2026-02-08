@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/Volumes/Workspace/Shizuku/server/.cxx/RelWithDebInfo/351ox481/x86_64",
+  "command": "/Users/anan/Library/Android/sdk/ndk/29.0.14206865/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=x86_64-none-linux-android24 --sysroot=/Users/anan/Library/Android/sdk/ndk/29.0.14206865/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -Dhymofs_jni_EXPORTS -I/Volumes/Workspace/Shizuku/server/src/main/cpp -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -Wall -Wno-unused-parameter -O2 -g -DNDEBUG -fPIC -std=gnu11 -o CMakeFiles/hymofs_jni.dir/src/main/cpp/hymofs_jni.c.o -c /Volumes/Workspace/Shizuku/server/src/main/cpp/hymofs_jni.c",
+  "file": "/Volumes/Workspace/Shizuku/server/src/main/cpp/hymofs_jni.c"
+}
+]

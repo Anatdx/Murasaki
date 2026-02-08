@@ -1,0 +1,19 @@
+                        -H/Volumes/Workspace/Shizuku/server
+-DCMAKE_SYSTEM_NAME=Android
+-DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+-DCMAKE_SYSTEM_VERSION=24
+-DANDROID_PLATFORM=android-24
+-DANDROID_ABI=x86_64
+-DCMAKE_ANDROID_ARCH_ABI=x86_64
+-DANDROID_NDK=/Users/anan/Library/Android/sdk/ndk/29.0.14206865
+-DCMAKE_ANDROID_NDK=/Users/anan/Library/Android/sdk/ndk/29.0.14206865
+-DCMAKE_TOOLCHAIN_FILE=/Users/anan/Library/Android/sdk/ndk/29.0.14206865/build/cmake/android.toolchain.cmake
+-DCMAKE_MAKE_PROGRAM=/Users/anan/Library/Android/sdk/cmake/3.22.1/bin/ninja
+-DCMAKE_C_FLAGS=-Wall -Wno-unused-parameter
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/Volumes/Workspace/Shizuku/server/build/intermediates/cxx/Debug/1p5b3i5a/obj/x86_64
+-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/Volumes/Workspace/Shizuku/server/build/intermediates/cxx/Debug/1p5b3i5a/obj/x86_64
+-DCMAKE_BUILD_TYPE=Debug
+-B/Volumes/Workspace/Shizuku/server/.cxx/Debug/1p5b3i5a/x86_64
+-GNinja
+                        Build command args: []
+                        Version: 2

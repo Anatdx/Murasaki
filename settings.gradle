@@ -40,7 +40,7 @@ dependencyResolutionManagement {
     }
 }
 
-include ':server', ':starter', ':shell'
+include ':server', ':starter'
 include ':manager'
 include ':common'
 
@@ -63,9 +63,6 @@ if (propFile.canRead()) {
 include ':aidl'
 project(':aidl').projectDir = file("$root${File.separator}aidl")
 
-include ':rish'
-project(':rish').projectDir = file("$root${File.separator}rish")
-
 include ':shared'
 project(':shared').projectDir = file("$root${File.separator}shared")
 
@@ -81,3 +78,9 @@ project(':server-shared').projectDir = file("$root${File.separator}server-shared
 // MRSK API (Murasaki) uses demo-hidden-api-stub
 include ':hidden-api-stub'
 project(':hidden-api-stub').projectDir = file("$root${File.separator}demo-hidden-api-stub")
+
+include ':demo'
+project(':demo').projectDir = file("$root${File.separator}demo")
+
+include ':hymofs-manager'
+project(':hymofs-manager').projectDir = file("$root${File.separator}hymofs-manager")
