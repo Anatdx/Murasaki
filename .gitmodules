@@ -1,5 +1,5 @@
 # MRSK API: Shizuku API adapted for reid/Murasaki (rikka.shizuku + io.murasaki)
 [submodule "api"]
 	path = api
-	url = https://github.com/Anatdx/Murasaki.git
+	url = https://github.com/Anatdx/Murasaki-api.git
 	branch = master
